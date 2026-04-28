@@ -133,5 +133,5 @@ See `TRD.md` for full architectural decisions and reasoning.
 
 ## Deployed Links
 
-- **App:** https://YOUR_APP_URL.vercel.app
-- **Storybook:** https://YOUR_STORYBOOK_URL.vercel.app
+- **App:** https://examplehr.vercel.app/employee
+- **Storybook:** https://storybook-static-lake-phi.vercel.app/?path=/story/components-balancecard--loading
