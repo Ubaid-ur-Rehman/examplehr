@@ -82,7 +82,7 @@ export function Notifications() {
         return (
           <div
             key={notification.id}
-            className={`pointer-events-auto rounded-2xl border p-4 shadow-lg transition-all duration-300 ${
+            className={`pointer-events-auto rounded-2xl border p-4 shadow-lg backdrop-blur transition-all duration-300 ${
               style.className
             } ${
               isExiting

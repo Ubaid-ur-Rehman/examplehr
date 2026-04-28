@@ -84,6 +84,10 @@ export function RequestForm({
       return;
     }
 
+    if (!startDate || !endDate) {
+      return;
+    }
+
     setDays(calculateDays(startDate, endDate));
   }, [startDate, endDate, daysTouched]);
 
@@ -140,6 +144,12 @@ export function RequestForm({
       endDate,
       reason: reason.trim(),
     });
+
+    setStartDate("");
+    setEndDate("");
+    setDays(0);
+    setReason("");
+    setDaysTouched(false);
   }
 
   if (!employeeBalances.length) {
@@ -155,7 +165,7 @@ export function RequestForm({
 
   return (
     <form
-      className="space-y-5 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm"
+      className="space-y-5 rounded-2xl border border-zinc-200 bg-zinc-50/60 p-5 sm:p-6"
       onSubmit={handleSubmit}
     >
       <div className="grid gap-5 md:grid-cols-2">
@@ -163,7 +173,7 @@ export function RequestForm({
           <span className="text-sm font-medium text-zinc-700">Location</span>
           <select
             aria-label="Location"
-            className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
+            className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-all duration-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
             disabled={isSubmitting}
             value={locationId}
             onChange={(event) => setLocationId(event.target.value)}
@@ -183,7 +193,7 @@ export function RequestForm({
           <span className="text-sm font-medium text-zinc-700">Days</span>
           <input
             aria-label="Days"
-            className="w-full rounded-xl border border-zinc-300 px-3 py-2.5 text-sm text-zinc-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
+            className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-all duration-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
             disabled={isSubmitting}
             min={0}
             step={1}
@@ -208,7 +218,7 @@ export function RequestForm({
           <span className="text-sm font-medium text-zinc-700">Start date</span>
           <input
             aria-label="Start date"
-            className="w-full rounded-xl border border-zinc-300 px-3 py-2.5 text-sm text-zinc-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
+            className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-all duration-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
             disabled={isSubmitting}
             type="date"
             value={startDate}
@@ -223,7 +233,7 @@ export function RequestForm({
           <span className="text-sm font-medium text-zinc-700">End date</span>
           <input
             aria-label="End date"
-            className="w-full rounded-xl border border-zinc-300 px-3 py-2.5 text-sm text-zinc-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
+            className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-all duration-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
             disabled={isSubmitting}
             type="date"
             value={endDate}
@@ -242,7 +252,7 @@ export function RequestForm({
         <span className="text-sm font-medium text-zinc-700">Reason</span>
         <textarea
           aria-label="Reason"
-          className="min-h-28 w-full rounded-xl border border-zinc-300 px-3 py-2.5 text-sm text-zinc-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
+          className="min-h-28 w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-all duration-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 disabled:cursor-not-allowed disabled:bg-zinc-100"
           disabled={isSubmitting}
           placeholder="Add context for your time-off request"
           value={reason}
@@ -260,7 +270,7 @@ export function RequestForm({
           ) : null}
         </div>
         <button
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-indigo-700 hover:shadow disabled:cursor-not-allowed disabled:bg-indigo-300"
           disabled={isSubmitting || !isFormValid}
           type="submit"
         >

@@ -89,30 +89,35 @@ export default function ManagerPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8">
-      <header className="flex flex-col gap-4 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-blue-600">
-            ExampleHR
-          </p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-950">
-            Manager Dashboard - Bob
-          </h1>
-        </div>
+      <header className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
+              Manager dashboard
+            </p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-950 sm:text-4xl">
+              {currentUser.name}
+            </h1>
+            <p className="mt-3 text-sm text-zinc-600">
+              <span className="font-semibold text-zinc-900">{pendingRequests.length}</span> pending request{pendingRequests.length === 1 ? "" : "s"} awaiting review.
+            </p>
+          </div>
 
-        <button
-          className="inline-flex items-center justify-center rounded-xl border border-blue-200 bg-blue-50 px-4 py-2.5 text-sm font-semibold text-blue-700 transition hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-60"
-          disabled={anniversaryMutation.isPending}
-          type="button"
-          onClick={() => anniversaryMutation.mutate()}
-        >
-          {anniversaryMutation.isPending
-            ? "Applying bonus..."
-            : "Trigger Anniversary Bonus for Alice"}
-        </button>
+          <button
+            className="inline-flex items-center justify-center rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-2.5 text-sm font-semibold text-indigo-700 transition-all duration-200 hover:bg-indigo-100 disabled:cursor-not-allowed disabled:opacity-60"
+            disabled={anniversaryMutation.isPending}
+            type="button"
+            onClick={() => anniversaryMutation.mutate()}
+          >
+            {anniversaryMutation.isPending
+              ? "Applying bonus..."
+              : "Trigger Anniversary Bonus for Alice"}
+          </button>
+        </div>
       </header>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-zinc-950">Pending Requests</h2>
+        <h2 className="text-2xl font-semibold tracking-tight text-zinc-950">Pending Requests</h2>
 
         {requestsQuery.isLoading ? (
           <RequestList requests={[]} isLoading />
@@ -135,7 +140,7 @@ export default function ManagerPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-zinc-950">Resolved Requests</h2>
+        <h2 className="text-2xl font-semibold tracking-tight text-zinc-950">Resolved Requests</h2>
         <RequestList requests={resolvedRequests} isLoading={requestsQuery.isLoading} />
       </section>
     </div>

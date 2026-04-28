@@ -10,6 +10,7 @@ export function useBalance(employeeId?: string, locationId?: string) {
     queryFn: () => fetchBalance(employeeId!, locationId!),
     enabled: Boolean(employeeId && locationId),
     staleTime: 30_000,
+    refetchInterval: 60_000,
     select: (data) => {
       const lastSyncedAt = new Date(data.balance.lastSyncedAt);
       const isFresh = Date.now() - lastSyncedAt.getTime() < FRESHNESS_WINDOW_MS;

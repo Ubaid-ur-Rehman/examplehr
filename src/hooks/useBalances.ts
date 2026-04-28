@@ -7,6 +7,7 @@ export function useBalances(employeeId?: string) {
     queryKey: ["balances"],
     queryFn: fetchAllBalances,
     staleTime: 30_000,
+    refetchInterval: 60_000, 
     refetchOnWindowFocus: true,
     select: (data) => ({
       ...data,

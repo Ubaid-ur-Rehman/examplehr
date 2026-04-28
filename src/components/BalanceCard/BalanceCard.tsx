@@ -16,6 +16,8 @@ interface BalanceCardProps {
   balance?: BalanceCardBalance;
   isLoading?: boolean;
   error?: boolean;
+  highlightRefresh?: boolean
+  silentFailure?: boolean
 }
 
 const LOCATION_NAMES: Record<string, string> = {
@@ -87,13 +89,15 @@ export function BalanceCard({
   balance,
   isLoading = false,
   error = false,
+  highlightRefresh,
+   silentFailure
 }: BalanceCardProps) {
   if (isLoading) {
     return (
       <div
         aria-busy="true"
         aria-label="Loading balance"
-        className="w-full rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm"
+        className="w-full rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm"
       >
         <div className="animate-pulse space-y-4">
           <div className="h-4 w-28 rounded bg-zinc-200" />
@@ -110,7 +114,7 @@ export function BalanceCard({
 
   if (error || !balance) {
     return (
-      <div className="w-full rounded-2xl border border-red-200 bg-red-50 p-5 text-red-700 shadow-sm">
+      <div className="w-full rounded-3xl border border-red-200 bg-red-50 p-6 text-red-700 shadow-sm">
         <p className="text-sm font-semibold">Unable to load balance</p>
         <p className="mt-1 text-sm text-red-600">
           Please refresh and try again.
@@ -127,14 +131,24 @@ export function BalanceCard({
   const isStale = !balance.isFresh;
 
   return (
-    <div className="w-full rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+    <div className="w-full rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+       {highlightRefresh && (
+      <div className="mb-3 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2 text-sm text-blue-700">
+        ↻ Balance updated by HCM
+      </div>
+    )}
+    {silentFailure && (
+      <div className="mb-3 rounded-xl border border-yellow-100 bg-yellow-50 px-3 py-2 text-sm text-yellow-700">
+        ⚠ Request may not have saved — please verify with HR
+      </div>
+    )}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
             {locationName}
           </p>
-          <div className="mt-3 flex items-end gap-2">
-            <span className="text-4xl font-semibold tracking-tight text-zinc-950">
+          <div className="mt-4 flex items-end gap-2">
+            <span className="text-5xl font-semibold leading-none tracking-tight text-zinc-950">
               {displayedAvailable}
             </span>
             <span className="pb-1 text-sm font-medium text-zinc-500">days</span>
@@ -146,8 +160,8 @@ export function BalanceCard({
         />
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-3">
-        <div className="rounded-xl bg-zinc-50 p-3">
+      <div className="mt-5 grid grid-cols-2 gap-3 border-y border-zinc-100 py-5">
+        <div className="rounded-2xl bg-zinc-50 p-3">
           <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
             Available
           </p>
@@ -155,7 +169,7 @@ export function BalanceCard({
             {displayedAvailable} days
           </p>
         </div>
-        <div className="rounded-xl bg-zinc-50 p-3">
+        <div className="rounded-2xl bg-zinc-50 p-3">
           <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
             Pending
           </p>
@@ -165,7 +179,7 @@ export function BalanceCard({
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-zinc-100 pt-4">
+      <div className="mt-1 flex flex-wrap items-center justify-between gap-3 pt-4">
         <p className="text-sm text-zinc-500">
           {getSyncedLabel(new Date(balance.lastSyncedAt))}
         </p>

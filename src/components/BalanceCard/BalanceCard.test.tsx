@@ -61,7 +61,7 @@ describe("BalanceCard", () => {
       />,
     );
 
-    expect(screen.getByText("Pending")).toBeInTheDocument();
+    expect(screen.getAllByText("Pending").length).toBeGreaterThan(0);
   });
 
   it("shows Failed badge when optimisticStatus is rolled-back", () => {

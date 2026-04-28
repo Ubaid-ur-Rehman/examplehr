@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Link from "next/link";
 
 import { Providers } from "@/app/providers";
+import { AppNav } from "@/components/AppNav/AppNav";
 import { Notifications } from "@/components/Notifications/Notifications";
 
 import "./globals.css";
@@ -27,29 +27,7 @@ export default function RootLayout({
       <body className="min-h-full bg-zinc-100 text-zinc-950">
         <Providers>
           <div className="min-h-full">
-            <nav className="border-b border-zinc-200 bg-white/95 backdrop-blur">
-              <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                <Link className="text-lg font-semibold tracking-tight" href="/employee">
-                  ExampleHR
-                </Link>
-
-                <div className="flex items-center gap-2">
-                  <Link
-                    className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 hover:text-zinc-950"
-                    href="/employee"
-                  >
-                    Employee
-                  </Link>
-                  <Link
-                    className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 hover:text-zinc-950"
-                    href="/manager"
-                  >
-                    Manager
-                  </Link>
-                </div>
-              </div>
-            </nav>
-
+            <AppNav />
             <main>{children}</main>
             <Notifications />
           </div>

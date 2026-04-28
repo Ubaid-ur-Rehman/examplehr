@@ -60,6 +60,11 @@ export const Stale: Story = {
       isFresh: false,
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText('Chicago')).toBeInTheDocument()
+    await expect(canvas.getByText(/balance may be outdated/i)).toBeInTheDocument()
+  },
 };
 
 export const OptimisticPending: Story = {
@@ -74,6 +79,11 @@ export const OptimisticPending: Story = {
       optimisticStatus: "submitting",
       originalAvailable: 8,
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText(/pending/i)).toBeInTheDocument()
+    await expect(canvas.getByText('6 days')).toBeInTheDocument()
   },
 };
 
@@ -90,6 +100,10 @@ export const OptimisticRolledBack: Story = {
       originalAvailable: 8,
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText(/failed|rolled.back/i)).toBeInTheDocument()
+  },
 };
 
 export const Error: Story = {
@@ -97,3 +111,39 @@ export const Error: Story = {
     error: true,
   },
 };
+export const BalanceRefreshedMidSession: Story = {
+  args: {
+    balance: {
+      employeeId: 'emp-1',
+      locationId: 'loc-nyc',
+      available: 17,
+      pending: 0,
+      lastSyncedAt: freshDate,
+      isFresh: true,
+    },
+    highlightRefresh: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText(/balance updated by hcm/i)).toBeInTheDocument()
+    await expect(canvas.getByText('17 days')).toBeInTheDocument()
+  },
+}
+
+export const HCMSilentlyWrong: Story = {
+  args: {
+    balance: {
+      employeeId: 'emp-1',
+      locationId: 'loc-nyc',
+      available: 12,
+      pending: 0,
+      lastSyncedAt: freshDate,
+      isFresh: false,
+    },
+    silentFailure: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText(/may not have saved/i)).toBeInTheDocument()
+  },
+}
