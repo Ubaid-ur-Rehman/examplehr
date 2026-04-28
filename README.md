@@ -134,4 +134,4 @@ See `TRD.md` for full architectural decisions and reasoning.
 ## Deployed Links
 
 - **App:** https://examplehr.vercel.app/employee
-- **Storybook:** https://storybook-static-lake-phi.vercel.app/?path=/story/components-balancecard--loading
+- **Storybook:** https://storybook-static-lake-phi.vercel.app/
