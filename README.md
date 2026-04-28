@@ -16,7 +16,7 @@ A frontend application for managing employee time-off requests. Built with Next.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/examplehr.git
+git clone https://github.com/Ubaid-ur-Rehman/examplehr.git
 cd examplehr
 ```
 
